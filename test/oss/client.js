@@ -9,7 +9,7 @@ describe('AliOssClient', function(){
         client = new AliOssClient();
         newBucketName = 'simple-bucket-name';
         newBucketName2 = 'multi-bucket-name';
-        regStr = 'anne-bqj';
+        regStr = 'simple-bucket';
     });
 
     //创建bucket
@@ -42,10 +42,11 @@ describe('AliOssClient', function(){
     });
 
     //prefix 筛选bucket
+    //ali-oss的nodejs 接口有问题，按照官方文档添加prefix之后，不能按照指定前缀查询，查询的还是全部的buckets
     it('listBuckets prefix',done => {
-
         let reg = eval('/^'+regStr+'/g');
-        client.listBuckets({prefix: 'anne-bqj'}).then(result => {
+        client.listBuckets({prefix: regStr}).then(result => {
+            log.error(result.buckets);
             assert.equal(reg.test(result.buckets[0].name), true);
             done();
         }).catch(err => {
@@ -54,7 +55,17 @@ describe('AliOssClient', function(){
     });
 
     after(function(){
-        //删除测试bucket
-        
+        //删除创建的测试bucket
+        co(function*(){
+            let result1 = yield client.deleteBucket(newBucketName);
+            let result2 = yield client.deleteBucket(newBucketName2);
+            //let bucketList = yield client.listBuckets({prefix: regStr});
+            //assert.equal(bucketList.buckets.length, 0);
+            return [result1, result2];
+        }).then(resultArray => {
+            log.info(JSON.stringify(resultArray));
+        }).catch(err => {
+            log.error(err.stack);
+        });
     });
 });
