@@ -6,10 +6,18 @@
   "scripts": {
     "test": "mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cailong1028/ali-oss-client.git"
+  },
   "keywords": [
     "ali oss client"
   ],
-  "author": "cl",
+  "author": {
+    "name": "cl",
+    "email": "cailong@gmail.com",
+    "url": "http://123.57.244.51"
+  },
   "license": "MIT",
   "dependencies": {
     "ali-oss": "^4.12.2",
