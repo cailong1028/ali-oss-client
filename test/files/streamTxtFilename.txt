@@ -1,0 +1,1 @@
+streamTxtFilename test, will upload to ali oss by stream type
