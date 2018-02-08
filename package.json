@@ -1,6 +1,6 @@
 {
   "name": "ali-oss-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ali-oss client",
   "main": "index.js",
   "scripts": {
